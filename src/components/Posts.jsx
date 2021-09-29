@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { BrowserRouter, Router, Link } from "react-router-dom";
+// import { BrowserRouter, Router, Link } from "react-router-dom";
 
 const Posts = (props) => {
   const posts = props.posts;

@@ -1,12 +1,12 @@
 import React, { Fragment, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 //API
 import { API_URL, fetchAllPosts } from "./api";
 
 //Components
-import { Posts } from "./components";
+import { Home, Login, Logout, Posts, Register } from "./components";
 
 const App = () => {
   //STATE
@@ -18,10 +18,50 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Stranger's Things</h1>
-      <Posts posts={posts} />
-    </div>
+    <Router>
+      <div id="container">
+        <nav>
+          <ul>
+            <li>
+              <Link to="/home">Home</Link>
+            </li>
+            <li>
+              <Link to="/posts">Posts</Link>
+            </li>
+            <li>
+              <Link to="/register">Register</Link>{" "}
+              {/* TODO: hide if user logged in */}
+            </li>
+            <li>
+              <Link to="/login">Log In</Link>{" "}
+              {/* TODO: hide if user logged in */}
+            </li>
+            <li>
+              <Link to="/logout">Log Out</Link>{" "}
+              {/* TODO: only allow to appear if user is logged in */}
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          {/* Insert Routes for each page: register, login, profile, home, etc. */}
+          <Route path="/posts">
+            <Posts posts={posts} />
+          </Route>
+          <Route path="/home">
+            <Home />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/logout">
+            <Logout />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 };
 
