@@ -4,17 +4,31 @@ import React, { Fragment, useState, useEffect } from "react";
 import { loginUser, API_URL } from "../api";
 
 const Login = (props) => {
-  const [user, setUser, token, setToken, pass, setPass] = [
+  const [
+    user,
+    setUser,
+    token,
+    setToken,
+    pass,
+    setPass,
+    activeUser,
+    setActiveUser,
+  ] = [
     props.user,
     props.setUser,
     props.token,
     props.setToken,
     props.pass,
     props.setPass,
+    props.activeUser,
+    props.setActiveUser,
   ];
 
   const accessAccount = () => {
-    loginUser(API_URL, user, pass).then((res) => setToken(res.data.token));
+    loginUser(API_URL, user, pass).then((res) => {
+      setActiveUser(user);
+      setToken(res.data.token);
+    });
   };
 
   return (
@@ -24,6 +38,8 @@ const Login = (props) => {
         onSubmit={(e) => {
           e.preventDefault();
           accessAccount();
+          setUser("");
+          setPass("");
         }}
       >
         <label>
@@ -32,6 +48,7 @@ const Login = (props) => {
             type="text"
             name="username"
             required={true}
+            value={user}
             onChange={(e) => {
               setUser(e.target.value);
             }}
@@ -43,6 +60,7 @@ const Login = (props) => {
             type="password"
             name="password"
             required={true}
+            value={pass}
             onChange={(e) => {
               setPass(e.target.value);
             }}

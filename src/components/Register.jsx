@@ -4,19 +4,31 @@ import React, { Fragment, useState, useEffect } from "react";
 import { registerNewUser, API_URL } from "../api";
 
 const Register = (props) => {
-  const [user, setUser, token, setToken, pass, setPass] = [
+  const [
+    user,
+    setUser,
+    token,
+    setToken,
+    pass,
+    setPass,
+    activeUser,
+    setActiveUser,
+  ] = [
     props.user,
     props.setUser,
     props.token,
     props.setToken,
     props.pass,
     props.setPass,
+    props.activeUser,
+    props.setActiveUser,
   ];
 
   const createAccount = () => {
-    registerNewUser(API_URL, user, pass).then((res) =>
-      setToken(res.data.token)
-    );
+    registerNewUser(API_URL, user, pass).then((res) => {
+      setActiveUser(user);
+      setToken(res.data.token);
+    });
     // add token to session storage?
   };
 
@@ -27,6 +39,8 @@ const Register = (props) => {
         onSubmit={(e) => {
           e.preventDefault();
           createAccount();
+          setUser("");
+          setPass("");
         }}
       >
         <label>
@@ -35,6 +49,7 @@ const Register = (props) => {
             type="text"
             name="username"
             required={true}
+            value={user}
             onChange={(e) => {
               setUser(e.target.value);
             }}
@@ -46,6 +61,7 @@ const Register = (props) => {
             type="password"
             name="password"
             required={true}
+            value={pass}
             onChange={(e) => {
               setPass(e.target.value);
             }}

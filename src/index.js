@@ -14,6 +14,7 @@ const App = () => {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const [token, setToken] = useState("");
+  const [activeUser, setActiveUser] = useState("");
 
   useEffect(() => {
     const allPosts = fetchAllPosts(API_URL);
@@ -61,6 +62,8 @@ const App = () => {
               setPass={setPass}
               token={token}
               setToken={setToken}
+              activeUser={activeUser}
+              setActiveUser={setActiveUser}
             />
           </Route>
           <Route path="/login">
@@ -71,6 +74,8 @@ const App = () => {
               setPass={setPass}
               token={token}
               setToken={setToken}
+              activeUser={activeUser}
+              setActiveUser={setActiveUser}
             />
           </Route>
           <Route path="/logout">
