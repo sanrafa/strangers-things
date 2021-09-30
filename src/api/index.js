@@ -5,7 +5,6 @@ export async function fetchAllPosts(url) {
   try {
     const response = await fetch(`${url}/posts`);
     const data = await response.json();
-    // console.log(data);
     return data;
   } catch (err) {
     console.error(err);
@@ -27,7 +26,27 @@ export async function registerNewUser(url, username, password) {
       }),
     });
     const data = await response.json();
-    console.log(data);
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function loginUser(url, username, password) {
+  try {
+    const response = await fetch(`${url}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: {
+          username: username,
+          password: password,
+        },
+      }),
+    });
+    const data = await response.json();
     return data;
   } catch (err) {
     console.error(err);

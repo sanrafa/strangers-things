@@ -12,6 +12,7 @@ const App = () => {
   //STATE
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState("");
+  const [pass, setPass] = useState("");
   const [token, setToken] = useState("");
 
   useEffect(() => {
@@ -56,6 +57,8 @@ const App = () => {
             <Register
               user={user}
               setUser={setUser}
+              pass={pass}
+              setPass={setPass}
               token={token}
               setToken={setToken}
             />
