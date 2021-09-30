@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, createContext } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
@@ -7,6 +7,9 @@ import { API_URL, fetchAllPosts } from "./api";
 
 //Components
 import { Home, Login, Logout, Posts, Register } from "./components";
+
+//Global context
+export const UserContext = createContext();
 
 const App = () => {
   //STATE
@@ -22,68 +25,72 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <div id="container">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/home">Home</Link>
-            </li>
-            <li>
-              <Link to="/posts">Posts</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>{" "}
-              {/* TODO: hide if user logged in */}
-            </li>
-            <li>
-              <Link to="/login">Log In</Link>{" "}
-              {/* TODO: hide if user logged in */}
-            </li>
-            <li>
-              <Link to="/logout">Log Out</Link>{" "}
-              {/* TODO: only allow to appear if user is logged in */}
-            </li>
-          </ul>
-        </nav>
-        <Switch>
-          {/* Insert Routes for each page: register, login, profile, home, etc. */}
-          <Route path="/posts">
-            <Posts posts={posts} />
-          </Route>
-          <Route path="/home">
-            <Home />
-          </Route>
-          <Route path="/register">
-            <Register
-              user={user}
-              setUser={setUser}
-              pass={pass}
-              setPass={setPass}
-              token={token}
-              setToken={setToken}
-              activeUser={activeUser}
-              setActiveUser={setActiveUser}
-            />
-          </Route>
-          <Route path="/login">
-            <Login
-              user={user}
-              setUser={setUser}
-              pass={pass}
-              setPass={setPass}
-              token={token}
-              setToken={setToken}
-              activeUser={activeUser}
-              setActiveUser={setActiveUser}
-            />
-          </Route>
-          <Route path="/logout">
-            <Logout />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    <UserContext.Provider
+      value={{ activeUser, setActiveUser, token, setToken }}
+    >
+      <Router>
+        <div id="container">
+          <nav>
+            <ul>
+              <li>
+                <Link to="/home">Home</Link>
+              </li>
+              <li>
+                <Link to="/posts">Posts</Link>
+              </li>
+              <li>
+                <Link to="/register">Register</Link>{" "}
+                {/* TODO: hide if user logged in */}
+              </li>
+              <li>
+                <Link to="/login">Log In</Link>{" "}
+                {/* TODO: hide if user logged in */}
+              </li>
+              <li>
+                <Link to="/logout">Log Out</Link>{" "}
+                {/* TODO: only allow to appear if user is logged in */}
+              </li>
+            </ul>
+          </nav>
+          <Switch>
+            {/* Insert Routes for each page: register, login, profile, home, etc. */}
+            <Route path="/posts">
+              <Posts posts={posts} />
+            </Route>
+            <Route path="/home">
+              <Home />
+            </Route>
+            <Route path="/register">
+              <Register
+                user={user}
+                setUser={setUser}
+                pass={pass}
+                setPass={setPass}
+                // token={token}
+                // setToken={setToken}
+                // activeUser={activeUser}
+                // setActiveUser={setActiveUser}
+              />
+            </Route>
+            <Route path="/login">
+              <Login
+                user={user}
+                setUser={setUser}
+                pass={pass}
+                setPass={setPass}
+                // token={token}
+                // setToken={setToken}
+                // activeUser={activeUser}
+                // setActiveUser={setActiveUser}
+              />
+            </Route>
+            <Route path="/logout">
+              <Logout />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </UserContext.Provider>
   );
 };
 

@@ -1,28 +1,19 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 // import { BrowserRouter, Router, Link } from "react-router-dom";
 
+import { UserContext } from "..";
 import { registerNewUser, API_URL } from "../api";
 
 const Register = (props) => {
-  const [
-    user,
-    setUser,
-    token,
-    setToken,
-    pass,
-    setPass,
-    activeUser,
-    setActiveUser,
-  ] = [
+  const [user, setUser, pass, setPass] = [
     props.user,
     props.setUser,
-    props.token,
-    props.setToken,
     props.pass,
     props.setPass,
-    props.activeUser,
-    props.setActiveUser,
   ];
+
+  const { activeUser, setActiveUser, token, setToken } =
+    useContext(UserContext);
 
   const createAccount = () => {
     registerNewUser(API_URL, user, pass).then((res) => {
