@@ -11,6 +11,8 @@ import { Home, Login, Logout, Posts, Register } from "./components";
 const App = () => {
   //STATE
   const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState("");
+  const [token, setToken] = useState("");
 
   useEffect(() => {
     const allPosts = fetchAllPosts(API_URL);
@@ -51,7 +53,12 @@ const App = () => {
             <Home />
           </Route>
           <Route path="/register">
-            <Register />
+            <Register
+              user={user}
+              setUser={setUser}
+              token={token}
+              setToken={setToken}
+            />
           </Route>
           <Route path="/login">
             <Login />
