@@ -64,7 +64,14 @@ const App = () => {
             />
           </Route>
           <Route path="/login">
-            <Login />
+            <Login
+              user={user}
+              setUser={setUser}
+              pass={pass}
+              setPass={setPass}
+              token={token}
+              setToken={setToken}
+            />
           </Route>
           <Route path="/logout">
             <Logout />
