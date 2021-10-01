@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, Fragment } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { API_URL, fetchAllPosts, getLoggedInUser } from "./api";
 
 //Components
-import { Home, Login, Logout, Posts, Register } from "./components";
+import { Home, Login, Logout, Posts, Register, NewPost } from "./components";
 
 //Global context
 export const UserContext = createContext();
@@ -39,7 +39,7 @@ const App = () => {
       value={{ activeUser, setActiveUser, token, setToken }}
     >
       <Router>
-        <div id="container">
+        <Fragment>
           <nav>
             <ul>
               <li>
@@ -70,6 +70,9 @@ const App = () => {
             <Route path="/posts">
               <Posts posts={posts} />
             </Route>
+            <Route path="/newpost">
+              <NewPost posts={posts} setPosts={setPosts} />
+            </Route>
             <Route path="/home">
               <Home />
             </Route>
@@ -93,7 +96,7 @@ const App = () => {
               <Logout />
             </Route>
           </Switch>
-        </div>
+        </Fragment>
       </Router>
     </UserContext.Provider>
   );

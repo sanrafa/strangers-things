@@ -49,7 +49,6 @@ const Login = (props) => {
         onSubmit={(e) => {
           e.preventDefault();
           accessAccount();
-          // TODO: if persistLogin=true, save token to localStorage, otherwise to sessionStorage
         }}
       >
         <label>
