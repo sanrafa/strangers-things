@@ -20,7 +20,7 @@ export async function makeNewPost(token, postObj) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(postObj),
+      body: JSON.stringify({ post: postObj }),
     });
     const data = await response.json();
     return data;
