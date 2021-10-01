@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
@@ -38,18 +38,21 @@ const App = () => {
               <li>
                 <Link to="/posts">Posts</Link>
               </li>
-              <li>
-                <Link to="/register">Register</Link>{" "}
-                {/* TODO: hide if user logged in */}
-              </li>
-              <li>
-                <Link to="/login">Log In</Link>{" "}
-                {/* TODO: hide if user logged in */}
-              </li>
-              <li>
-                <Link to="/logout">Log Out</Link>{" "}
-                {/* TODO: only allow to appear if user is logged in */}
-              </li>
+              {!activeUser && !token ? (
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+              ) : null}
+              {!activeUser && !token ? (
+                <li>
+                  <Link to="/login">Log In</Link>
+                </li>
+              ) : null}
+              {activeUser && token ? (
+                <li>
+                  <Link to="/logout">Log Out</Link>
+                </li>
+              ) : null}
             </ul>
           </nav>
           <Switch>
@@ -66,10 +69,6 @@ const App = () => {
                 setUser={setUser}
                 pass={pass}
                 setPass={setPass}
-                // token={token}
-                // setToken={setToken}
-                // activeUser={activeUser}
-                // setActiveUser={setActiveUser}
               />
             </Route>
             <Route path="/login">
@@ -78,10 +77,6 @@ const App = () => {
                 setUser={setUser}
                 pass={pass}
                 setPass={setPass}
-                // token={token}
-                // setToken={setToken}
-                // activeUser={activeUser}
-                // setActiveUser={setActiveUser}
               />
             </Route>
             <Route path="/logout">
