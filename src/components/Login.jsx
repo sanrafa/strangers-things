@@ -12,6 +12,9 @@ const Login = (props) => {
     props.setPass,
   ];
 
+  //state for login preferences
+  const [persistLogin, setPersistLogin] = useState(false);
+
   const { activeUser, setActiveUser, token, setToken } =
     useContext(UserContext);
 
@@ -29,6 +32,7 @@ const Login = (props) => {
         onSubmit={(e) => {
           e.preventDefault();
           accessAccount();
+          // TODO: if persistLogin=true, save token to localStorage, otherwise to sessionStorage
           setUser("");
           setPass("");
         }}
@@ -54,6 +58,17 @@ const Login = (props) => {
             value={pass}
             onChange={(e) => {
               setPass(e.target.value);
+            }}
+          ></input>
+        </label>
+        <label>
+          Stay logged in?
+          <input
+            type="checkbox"
+            name="stayLoggedIn"
+            value="stayLoggedIn"
+            onClick={() => {
+              setPersistLogin(!persistLogin);
             }}
           ></input>
         </label>

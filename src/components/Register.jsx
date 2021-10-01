@@ -20,9 +20,10 @@ const Register = (props) => {
       setActiveUser(user);
       setToken(res.data.token);
     });
-    // add token to session storage?
+    // add token to session storage? Or redirect to login page
   };
 
+  //TODO: add min-length requirements to username & password
   return (
     <main>
       <h1>Register</h1>
