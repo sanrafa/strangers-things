@@ -12,6 +12,23 @@ export async function fetchAllPosts(url) {
   }
 }
 
+export async function makeNewPost(token, postObj) {
+  try {
+    const response = await fetch(`${API_URL}/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(postObj),
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function registerNewUser(url, username, password) {
   //TODO: refactor to remove url param
   try {

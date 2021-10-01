@@ -32,7 +32,7 @@ const App = () => {
   useEffect(() => {
     const allPosts = fetchAllPosts(API_URL);
     allPosts.then((res) => setPosts(res.data.posts));
-  }, []);
+  }, [posts]);
 
   return (
     <UserContext.Provider
