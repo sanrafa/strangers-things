@@ -27,10 +27,19 @@ const Login = (props) => {
   }, [token]);
 
   const accessAccount = () => {
-    loginUser(API_URL, user, pass).then((res) => {
-      setActiveUser(user);
-      setToken(res.data.token);
-    });
+    loginUser(API_URL, user, pass)
+      .then((res) => {
+        setActiveUser(user);
+        setToken(res.data.token);
+        setUser("");
+        setPass("");
+        if (document.getElementById("login-error").style.display === "block") {
+          document.getElementById("login-error").style.display = "none";
+        }
+      })
+      .catch((err) => {
+        document.getElementById("login-error").style.display = "block";
+      });
   };
 
   return (
@@ -41,8 +50,6 @@ const Login = (props) => {
           e.preventDefault();
           accessAccount();
           // TODO: if persistLogin=true, save token to localStorage, otherwise to sessionStorage
-          setUser("");
-          setPass("");
         }}
       >
         <label>
@@ -80,9 +87,11 @@ const Login = (props) => {
             }}
           ></input>
         </label>
-
         <button type="submit">LOG IN</button>
       </form>
+      <p id="login-error" style={{ display: "none" }}>
+        Incorrect username or password
+      </p>
     </main>
   );
 };

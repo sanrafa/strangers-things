@@ -1,8 +1,13 @@
 import React, { Fragment, useState, useEffect } from "react";
-// import { BrowserRouter, Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Home = (props) => {
-  return <h1>Welcome to Stranger's Things</h1>;
+  return (
+    <main>
+      <h1>Welcome to Stranger's Things!</h1>
+      <Link to="/posts">View active posts</Link>
+    </main>
+  );
 };
 
 export default Home;

@@ -20,6 +20,7 @@ const App = () => {
   const [activeUser, setActiveUser] = useState("");
 
   useEffect(() => {
+    //if user selected "stay logged in" during last session, app authorizes them on page load
     if (localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
       getLoggedInUser(localStorage.getItem("token")).then((res) =>
@@ -47,12 +48,12 @@ const App = () => {
               <li>
                 <Link to="/posts">Posts</Link>
               </li>
-              {!activeUser && !token ? (
+              {!activeUser || !token ? (
                 <li>
                   <Link to="/register">Register</Link>
                 </li>
               ) : null}
-              {!activeUser && !token ? (
+              {!activeUser || !token ? (
                 <li>
                   <Link to="/login">Log In</Link>
                 </li>
