@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React from "react";
 // import { BrowserRouter, Router, Link } from "react-router-dom";
 
 const Posts = (props) => {
@@ -8,7 +8,7 @@ const Posts = (props) => {
       <h1>Posts</h1>
       {posts
         ? posts.map((post) => (
-            <div>
+            <div key={post._id}>
               <h3>{post.title}</h3>
               <p>{post.description}</p>
             </div>

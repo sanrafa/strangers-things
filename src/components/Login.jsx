@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 // import { BrowserRouter, Router, Link } from "react-router-dom";
 
 import { UserContext } from "..";
-import { loginUser, API_URL } from "../api";
+import { loginUser } from "../api";
 
 const Login = (props) => {
   const [user, setUser, pass, setPass] = [
@@ -12,8 +12,7 @@ const Login = (props) => {
     props.setPass,
   ];
 
-  const { activeUser, setActiveUser, token, setToken } =
-    useContext(UserContext);
+  const { setActiveUser, token, setToken } = useContext(UserContext);
 
   //state for login preferences
   const [persistLogin, setPersistLogin] = useState(false);
@@ -27,7 +26,7 @@ const Login = (props) => {
   }, [token]);
 
   const accessAccount = () => {
-    loginUser(API_URL, user, pass)
+    loginUser(user, pass)
       .then((res) => {
         setActiveUser(user);
         setToken(res.data.token);

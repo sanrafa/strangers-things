@@ -1,8 +1,8 @@
-import React, { Fragment, useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 // import { BrowserRouter, Router, Link } from "react-router-dom";
 
 import { UserContext } from "..";
-import { registerNewUser, API_URL } from "../api";
+import { registerNewUser } from "../api";
 
 const Register = (props) => {
   const [user, setUser, pass, setPass] = [
@@ -12,11 +12,10 @@ const Register = (props) => {
     props.setPass,
   ];
 
-  const { activeUser, setActiveUser, token, setToken } =
-    useContext(UserContext);
+  const { setActiveUser, setToken } = useContext(UserContext);
 
   const createAccount = () => {
-    registerNewUser(API_URL, user, pass).then((res) => {
+    registerNewUser(user, pass).then((res) => {
       setActiveUser(user);
       setToken(res.data.token);
     });

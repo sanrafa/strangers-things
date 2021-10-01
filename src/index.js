@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 //API
-import { API_URL, fetchAllPosts, getLoggedInUser } from "./api";
+import { fetchAllPosts, getLoggedInUser } from "./api";
 
 //Components
 import { Home, Login, Logout, Posts, Register, NewPost } from "./components";
@@ -30,7 +30,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const allPosts = fetchAllPosts(API_URL);
+    const allPosts = fetchAllPosts(token);
     allPosts.then((res) => setPosts(res.data.posts));
   }, [posts]);
 
