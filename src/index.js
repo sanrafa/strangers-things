@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 //API
-import { API_URL, fetchAllPosts } from "./api";
+import { API_URL, fetchAllPosts, getLoggedInUser } from "./api";
 
 //Components
 import { Home, Login, Logout, Posts, Register } from "./components";
@@ -18,6 +18,15 @@ const App = () => {
   const [pass, setPass] = useState("");
   const [token, setToken] = useState("");
   const [activeUser, setActiveUser] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setToken(localStorage.getItem("token"));
+      getLoggedInUser(localStorage.getItem("token")).then((res) =>
+        setActiveUser(res)
+      );
+    }
+  }, []);
 
   useEffect(() => {
     const allPosts = fetchAllPosts(API_URL);
