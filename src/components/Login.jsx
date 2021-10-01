@@ -18,6 +18,14 @@ const Login = (props) => {
   //state for login preferences
   const [persistLogin, setPersistLogin] = useState(false);
 
+  useEffect(() => {
+    if (persistLogin) {
+      localStorage.setItem("token", token);
+    } else {
+      sessionStorage.setItem("token", token);
+    }
+  }, [token]);
+
   const accessAccount = () => {
     loginUser(API_URL, user, pass).then((res) => {
       setActiveUser(user);

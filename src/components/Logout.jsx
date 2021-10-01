@@ -9,6 +9,8 @@ const Logout = () => {
   useEffect(() => {
     setActiveUser("");
     setToken("");
+    localStorage.clear();
+    sessionStorage.clear();
   }, []);
 
   return <h1>You are now logged out</h1>;
