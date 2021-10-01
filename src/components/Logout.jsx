@@ -1,7 +1,16 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 // import { BrowserRouter, Router, Link } from "react-router-dom";
 
+import { UserContext } from "..";
+
 const Logout = () => {
+  const { setActiveUser, setToken } = useContext(UserContext);
+
+  useEffect(() => {
+    setActiveUser("");
+    setToken("");
+  }, []);
+
   return <h1>You are now logged out</h1>;
 };
 

@@ -12,11 +12,11 @@ const Login = (props) => {
     props.setPass,
   ];
 
-  //state for login preferences
-  const [persistLogin, setPersistLogin] = useState(false);
-
   const { activeUser, setActiveUser, token, setToken } =
     useContext(UserContext);
+
+  //state for login preferences
+  const [persistLogin, setPersistLogin] = useState(false);
 
   const accessAccount = () => {
     loginUser(API_URL, user, pass).then((res) => {
