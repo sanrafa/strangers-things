@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 // import { BrowserRouter, Router, Link } from "react-router-dom";
 
 import { UserContext } from "..";
@@ -14,11 +14,19 @@ const Register = (props) => {
 
   const { setActiveUser, setToken } = useContext(UserContext);
 
+  const [registerError, setRegisterError] = useState("");
+
   const createAccount = () => {
-    registerNewUser(user, pass).then((res) => {
-      setActiveUser(user);
-      setToken(res.data.token);
-    });
+    registerNewUser(user, pass)
+      .then((res) => {
+        setActiveUser(user);
+        setToken(res.data.token);
+        setRegisterError("");
+      })
+      .catch((err) => {
+        console.error(err);
+        setRegisterError("That username is already taken. Try another.");
+      });
     // add token to session storage? Or redirect to login page
   };
 
@@ -61,6 +69,7 @@ const Register = (props) => {
 
         <button type="submit">REGISTER</button>
       </form>
+      {registerError ? <p>{registerError}</p> : null}
     </main>
   );
 };
