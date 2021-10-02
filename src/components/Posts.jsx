@@ -1,6 +1,6 @@
 import React, { useContext, Fragment } from "react";
-import { Link, Switch, Route, useRouteMatch } from "react-router-dom";
-import { FeaturedPost } from ".";
+import { Link, Route, useRouteMatch } from "react-router-dom";
+import { FeaturedPost, SinglePostView } from ".";
 
 import { UserContext } from "..";
 
@@ -38,20 +38,17 @@ const Posts = (props) => {
                   </button>
                 ) : null}
                 {activeUser && !post.isAuthor ? (
-                  <button type="button" onClick={() => console.log("clicked")}>
-                    SEND A MESSAGE
-                  </button>
+                  <Link to={`/posts/${post._id}`}>Send a message</Link>
                 ) : null}
-                <Link to={`/posts/${post._id}`}>View post</Link>
+                <Link to={`/posts/${post._id}/post`}>View post</Link>
               </div>
             ))
           : null}
       </section>
-      <Switch>
-        <Route path={`${match.path}/:postID`}>
-          <FeaturedPost posts={posts} />
-        </Route>
-      </Switch>
+
+      <Route exact path={`${match.path}/:postID`}>
+        <FeaturedPost posts={posts} />
+      </Route>
     </Fragment>
   );
 };

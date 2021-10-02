@@ -14,6 +14,7 @@ import {
   Register,
   NewPost,
   UserProfile,
+  SinglePostView,
 } from "./components";
 
 //Global context
@@ -80,9 +81,15 @@ const App = () => {
           </nav>
           <Switch>
             {/* Insert Routes for each page: register, login, profile, home, etc. */}
+            <Route
+              exact
+              path="/posts/:postID/post"
+              component={SinglePostView}
+            />
             <Route path="/posts">
               <Posts posts={posts} setPosts={setPosts} />
             </Route>
+
             <Route path="/newpost">
               <NewPost posts={posts} setPosts={setPosts} />
             </Route>
