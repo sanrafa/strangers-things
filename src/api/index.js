@@ -27,6 +27,32 @@ export async function fetchAllPosts(token) {
   }
 }
 
+/* export async function getPost(postID, token) {
+  if (!token) {
+    try {
+      const response = await fetch(`${API_URL}/posts/${postID}`);
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  } else {
+    try {
+      const response = await fetch(`${API_URL}/posts/${postID}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+} */
+
 export async function makeNewPost(token, postObj) {
   try {
     const response = await fetch(`${API_URL}/posts`, {
