@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
-// import { BrowserRouter, Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { UserContext } from "..";
 
 import { deletePost } from "../api";
 
 const Posts = (props) => {
-  const posts = props.posts;
+  const [posts, setPosts] = [props.posts, props.setPosts];
 
-  const { token } = useContext(UserContext);
+  const { token, activeUser } = useContext(UserContext);
 
   return (
     <section>
@@ -21,14 +21,27 @@ const Posts = (props) => {
               {post.isAuthor === true ? (
                 <button
                   type="button"
-                  onClick={() => deletePost(post._id, token)}
+                  onClick={() =>
+                    deletePost(post._id, token).then(() => {
+                      const activePosts = posts.filter(
+                        (post) => post.active === true
+                      );
+                      setPosts(activePosts);
+                    })
+                  }
                 >
                   DELETE
+                </button>
+              ) : null}
+              {activeUser && !post.isAuthor ? (
+                <button type="button" onClick={() => console.log("clicked")}>
+                  SEND A MESSAGE
                 </button>
               ) : null}
             </div>
           ))
         : null}
+      <Link to="/newpost">Create new post</Link>
     </section>
   );
 };

@@ -68,7 +68,7 @@ const App = () => {
           <Switch>
             {/* Insert Routes for each page: register, login, profile, home, etc. */}
             <Route path="/posts">
-              <Posts posts={posts} />
+              <Posts posts={posts} setPosts={setPosts} />
             </Route>
             <Route path="/newpost">
               <NewPost posts={posts} setPosts={setPosts} />
