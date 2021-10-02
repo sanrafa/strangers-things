@@ -44,6 +44,22 @@ export async function makeNewPost(token, postObj) {
   }
 }
 
+export async function deletePost(postID, token) {
+  try {
+    const response = await fetch(`${API_URL}/posts/${postID}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function registerNewUser(username, password) {
   try {
     const response = await fetch(`${API_URL}/users/register`, {
@@ -97,7 +113,6 @@ export async function getLoggedInUser(token) {
     });
     const data = await response.json();
     const username = data.data.user.username;
-    console.log(username);
     return username;
   } catch (err) {
     console.error(err);
