@@ -123,6 +123,22 @@ export async function loginUser(username, password) {
   }
 }
 
+export async function getUserInfo(token) {
+  try {
+    const response = await fetch(`${API_URL}/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function getLoggedInUser(token) {
   try {
     const response = await fetch(`${API_URL}/test/me`, {

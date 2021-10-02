@@ -6,7 +6,15 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { fetchAllPosts, getLoggedInUser } from "./api";
 
 //Components
-import { Home, Login, Logout, Posts, Register, NewPost } from "./components";
+import {
+  Home,
+  Login,
+  Logout,
+  Posts,
+  Register,
+  NewPost,
+  UserProfile,
+} from "./components";
 
 //Global context
 export const UserContext = createContext();
@@ -48,6 +56,11 @@ const App = () => {
               <li>
                 <Link to="/posts">Posts</Link>
               </li>
+              {activeUser && token ? (
+                <li>
+                  <Link to="/profile">My Profile</Link>
+                </li>
+              ) : null}
               {!activeUser || !token ? (
                 <li>
                   <Link to="/register">Register</Link>
@@ -91,6 +104,9 @@ const App = () => {
                 pass={pass}
                 setPass={setPass}
               />
+            </Route>
+            <Route path="/profile">
+              <UserProfile />
             </Route>
             <Route path="/logout">
               <Logout />
