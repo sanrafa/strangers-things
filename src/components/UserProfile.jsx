@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState, Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import { getUserInfo } from "../api";
 import { UserContext } from "..";
@@ -31,7 +32,13 @@ const UserProfile = () => {
       {myPosts.length > 0 ? (
         myPosts.map((post) => (
           <div key={post._id}>
-            <h3>{post.title}</h3>
+            <h3>
+              {post.active ? (
+                <Link to={`/posts/${post._id}/post`}>{post.title}</Link>
+              ) : (
+                post.title
+              )}
+            </h3>
             <p>{post.description}</p>
           </div>
         ))
@@ -42,7 +49,12 @@ const UserProfile = () => {
       {myMessages.length > 0 ? (
         myMessages.map((msg) => (
           <div key={msg._id}>
-            <h3>To: {msg.post.title}</h3>
+            <h3>
+              To:{" "}
+              {msg.fromUser.username !== activeUser
+                ? `Me (${msg.post.title})`
+                : msg.post.title}
+            </h3>
             <p>{msg.content}</p>
             <h4>
               From:{" "}
