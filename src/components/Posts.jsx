@@ -1,6 +1,6 @@
 import React, { useContext, Fragment } from "react";
 import { Link, Route, useRouteMatch } from "react-router-dom";
-import { FeaturedPost, SinglePostView } from ".";
+import { FeaturedPost } from ".";
 
 import { UserContext } from "..";
 

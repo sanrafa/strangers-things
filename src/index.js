@@ -41,7 +41,7 @@ const App = () => {
   useEffect(() => {
     const allPosts = fetchAllPosts(token);
     allPosts.then((res) => setPosts(res.data.posts));
-  }, [posts]);
+  }, [JSON.stringify(posts)]); // since posts is an array of objects, it'll rerender everytime the variable is read
 
   return (
     <UserContext.Provider
@@ -81,11 +81,9 @@ const App = () => {
           </nav>
           <Switch>
             {/* Insert Routes for each page: register, login, profile, home, etc. */}
-            <Route
-              exact
-              path="/posts/:postID/post"
-              component={SinglePostView}
-            />
+            <Route exact path="/posts/:postID/post">
+              <SinglePostView posts={posts} />
+            </Route>
             <Route path="/posts">
               <Posts posts={posts} setPosts={setPosts} />
             </Route>
