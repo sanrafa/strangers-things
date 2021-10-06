@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
-// import { BrowserRouter, Router, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { UserContext } from "..";
 import { registerNewUser } from "../api";
 
 const Register = (props) => {
+  const history = useHistory();
   const [user, setUser, pass, setPass] = [
     props.user,
     props.setUser,
@@ -12,7 +13,7 @@ const Register = (props) => {
     props.setPass,
   ];
 
-  const { setActiveUser, setToken } = useContext(UserContext);
+  const { setActiveUser, setToken, token } = useContext(UserContext);
 
   const [registerError, setRegisterError] = useState("");
 
@@ -22,6 +23,9 @@ const Register = (props) => {
         setActiveUser(user);
         setToken(res.data.token);
         setRegisterError("");
+      })
+      .then(() => {
+        localStorage.setItem("token", token); // CHANGE TO SESSION BEFORE DEPLOYMENT
       })
       .catch((err) => {
         console.error(err);
@@ -40,6 +44,7 @@ const Register = (props) => {
           createAccount();
           setUser("");
           setPass("");
+          history.push("/");
         }}
       >
         <label>

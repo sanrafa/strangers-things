@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-// import { BrowserRouter, Router, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { UserContext } from "..";
 import { loginUser } from "../api";
 
 const Login = (props) => {
+  const history = useHistory();
   const [user, setUser, pass, setPass] = [
     props.user,
     props.setUser,
@@ -35,6 +36,9 @@ const Login = (props) => {
         if (document.getElementById("login-error").style.display === "block") {
           document.getElementById("login-error").style.display = "none";
         }
+      })
+      .then(() => {
+        history.push("/");
       })
       .catch((err) => {
         document.getElementById("login-error").style.display = "block";
