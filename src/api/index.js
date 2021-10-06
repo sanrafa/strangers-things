@@ -81,6 +81,25 @@ export async function deletePost(postID, token) {
   }
 }
 
+export async function editPost(token, postID, postObj) {
+  try {
+    const response = await fetch(`${API_URL}/posts/${postID}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        post: postObj,
+      }),
+    });
+    const data = response.json();
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function registerNewUser(username, password) {
   try {
     const response = await fetch(`${API_URL}/users/register`, {

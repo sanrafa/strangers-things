@@ -15,6 +15,7 @@ import {
   NewPost,
   UserProfile,
   SinglePostView,
+  EditPost,
 } from "./components";
 
 //Global context
@@ -41,7 +42,7 @@ const App = () => {
   useEffect(() => {
     const allPosts = fetchAllPosts(token);
     allPosts.then((res) => setPosts(res.data.posts));
-  }, [JSON.stringify(posts)]); // since posts is an array of objects, it'll rerender everytime the variable is read
+  }, [JSON.stringify(posts), token]); // since posts is an array of objects, it'll rerender everytime the variable is read
 
   return (
     <UserContext.Provider
@@ -52,7 +53,7 @@ const App = () => {
           <nav>
             <ul>
               <li>
-                <Link to="/home">Home</Link>
+                <Link to="/">Home</Link>
               </li>
               <li>
                 <Link to="/posts">Posts</Link>
@@ -84,6 +85,9 @@ const App = () => {
             <Route exact path="/posts/:postID/post">
               <SinglePostView posts={posts} />
             </Route>
+            <Route exact path="/posts/:postID/edit">
+              <EditPost posts={posts} setPosts={setPosts} />
+            </Route>
             <Route path="/posts">
               <Posts posts={posts} setPosts={setPosts} />
             </Route>
@@ -91,7 +95,7 @@ const App = () => {
             <Route path="/newpost">
               <NewPost posts={posts} setPosts={setPosts} />
             </Route>
-            <Route path="/home">
+            <Route exact path="/">
               <Home />
             </Route>
             <Route path="/register">

@@ -21,6 +21,10 @@ const SinglePostView = (props) => {
   return (
     <section>
       <Link to="/posts">Return to all posts</Link>
+      {post && post.isAuthor ? (
+        <Link to={`/posts/${postID}/edit`}>Edit this post</Link>
+      ) : null}
+
       <h1>{post ? post.title : null}</h1>
       <p>
         <strong>Price:</strong> {post ? post.price : null}

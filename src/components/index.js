@@ -8,3 +8,4 @@ export { default as NewPost } from "./NewPost.jsx";
 export { default as FeaturedPost } from "./FeaturedPost.jsx";
 export { default as UserProfile } from "./UserProfile.jsx";
 export { default as SinglePostView } from "./SinglePostView.jsx";
+export { default as EditPost } from "./EditPost.jsx";
