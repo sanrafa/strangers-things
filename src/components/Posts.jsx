@@ -37,7 +37,10 @@ const Posts = (props) => {
     <Fragment>
       <section>
         <h1>Posts</h1>
-        <Link to="/newpost">Create new post</Link>
+        {token && activeUser ? (
+          <Link to="/newpost">Create new post</Link>
+        ) : null}
+
         <form>
           <input
             type="text"

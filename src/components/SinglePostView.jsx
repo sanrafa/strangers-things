@@ -38,8 +38,8 @@ const SinglePostView = (props) => {
       </p>
       <p>{post ? post.description : null}</p>
       {/* Message form will show if user is not author */}
-      {post && !post.isAuthor ? <h2>SEND A MESSAGE</h2> : null}
-      {post && !msgSent && !post.isAuthor ? (
+      {post && !post.isAuthor && token ? <h2>SEND A MESSAGE</h2> : null}
+      {post && !msgSent && !post.isAuthor && token ? (
         <Fragment>
           <form
             onSubmit={(e) => {
