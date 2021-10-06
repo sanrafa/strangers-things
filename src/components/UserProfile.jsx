@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState, Fragment } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { getUserInfo } from "../api";
@@ -12,22 +12,25 @@ const UserProfile = () => {
   const [myMessages, setMyMessages] = useState([]);
 
   useEffect(() => {
-    getUserInfo(token).then((res) => {
-      if (res.success === false) {
-        setLoginError(res.error.message);
-      } else {
-        setUserData(res.data);
-        setLoginError("");
-        setMyPosts(res.data.posts);
-        setMyMessages(res.data.messages);
-      }
-    });
+    if (token) {
+      getUserInfo(token).then((res) => {
+        if (res.success === false) {
+          setLoginError(res.error.message);
+        } else {
+          setUserData(res.data);
+          setLoginError("");
+          setMyPosts(res.data.posts);
+          setMyMessages(res.data.messages);
+        }
+      });
+    }
   }, [activeUser, token]);
 
   return (
     <div>
       <h1>User Profile</h1>
       {loginError ? <p>{loginError}</p> : null}
+      {userData ? <h3>Hello {userData.username}!</h3> : null}
       <h2>My Posts</h2>
       {myPosts.length > 0 ? (
         myPosts.map((post) => (

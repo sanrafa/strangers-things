@@ -71,7 +71,7 @@ const EditPost = (props) => {
               <input
                 type="text"
                 name="title"
-                value={editedPost.title}
+                value={editedPost.title ? editedPost.title : post.title}
                 onChange={handleChange}
               ></input>
             </label>
@@ -80,7 +80,11 @@ const EditPost = (props) => {
               <input
                 type="textarea"
                 name="description"
-                value={"" || editedPost.description}
+                value={
+                  editedPost.description
+                    ? editedPost.description
+                    : post.description
+                }
                 onChange={handleChange}
               ></input>
             </label>
@@ -89,7 +93,7 @@ const EditPost = (props) => {
               <input
                 type="text"
                 name="price"
-                value={"" || editedPost.price}
+                value={editedPost.price ? editedPost.price : post.price}
                 onChange={handleChange}
               ></input>
             </label>
@@ -98,7 +102,9 @@ const EditPost = (props) => {
               <input
                 type="text"
                 name="location"
-                value={"" || editedPost.location}
+                value={
+                  editedPost.location ? editedPost.location : post.location
+                }
                 onChange={handleChange}
               ></input>
             </label>
@@ -107,7 +113,7 @@ const EditPost = (props) => {
               <input
                 type="checkbox"
                 name="willDeliver"
-                value={false || editedPost.willDeliver}
+                value={editedPost.willDeliver}
                 onChange={() =>
                   setEditedPost({
                     ...editedPost,

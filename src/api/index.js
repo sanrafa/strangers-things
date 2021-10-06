@@ -93,7 +93,7 @@ export async function editPost(token, postID, postObj) {
         post: postObj,
       }),
     });
-    const data = response.json();
+    const data = await response.json();
     return data;
   } catch (err) {
     console.error(err);
@@ -151,7 +151,6 @@ export async function getUserInfo(token) {
       },
     });
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (err) {
     console.error(err);
