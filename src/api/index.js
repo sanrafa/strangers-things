@@ -59,6 +59,7 @@ export async function makeNewPost(token, postObj) {
       body: JSON.stringify({ post: postObj }),
     });
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (err) {
     console.error(err);

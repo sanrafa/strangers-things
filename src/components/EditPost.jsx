@@ -114,6 +114,7 @@ const EditPost = (props) => {
                 type="checkbox"
                 name="willDeliver"
                 value={editedPost.willDeliver}
+                defaultChecked={post.willDeliver}
                 onChange={() =>
                   setEditedPost({
                     ...editedPost,
