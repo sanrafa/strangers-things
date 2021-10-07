@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { UserContext } from "..";
-import { sendMessage } from "../api";
+import { sendMessage, deletePost } from "../api";
 
 const SinglePostView = (props) => {
   const { postID } = useParams();
@@ -12,6 +12,7 @@ const SinglePostView = (props) => {
   const [post, setPost] = useState({});
   const [message, setMessage] = useState("");
   const [msgSent, setMsgSent] = useState(false);
+  const [deletedPost, setDeletedPost] = useState(false);
 
   useEffect(() => {
     const thisPost = posts.filter((ele) => ele._id === postID);
@@ -24,19 +25,41 @@ const SinglePostView = (props) => {
       {post && post.isAuthor ? (
         <Link to={`/posts/${postID}/edit`}>Edit this post</Link>
       ) : null}
+      {post && post.isAuthor && !deletedPost ? (
+        <button
+          type="button"
+          onClick={() => {
+            deletePost(postID, token).then(() => {
+              setDeletedPost(true);
+              setPost(false);
+            });
+          }}
+        >
+          DELETE THIS POST
+        </button>
+      ) : null}
+      {!post && deletedPost ? (
+        <p>
+          <em>Your post has been deleted.</em>
+        </p>
+      ) : null}
+      {post ? (
+        <Fragment>
+          <h1>{post ? post.title : null}</h1>
+          <p>
+            <strong>Price:</strong> {post ? post.price : null}
+          </p>
+          <p>
+            <strong>Delivery available?</strong>
+            {post && post.willDeliver ? " yes" : " none"}
+          </p>
+          <p>
+            <strong>Location:</strong> {post ? post.location : null}
+          </p>
+          <p>{post ? post.description : null}</p>
+        </Fragment>
+      ) : null}
 
-      <h1>{post ? post.title : null}</h1>
-      <p>
-        <strong>Price:</strong> {post ? post.price : null}
-      </p>
-      <p>
-        <strong>Delivery available?</strong>
-        {post && post.willDeliver ? " yes" : " none"}
-      </p>
-      <p>
-        <strong>Location:</strong> {post ? post.location : null}
-      </p>
-      <p>{post ? post.description : null}</p>
       {/* Message form will show if user is not author */}
       {post && !post.isAuthor && token ? <h2>SEND A MESSAGE</h2> : null}
       {post && !msgSent && !post.isAuthor && token ? (
