@@ -41,7 +41,7 @@ const EditPost = (props) => {
     setEditedPost({ ...editedPost, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = () => {
     for (let key in editedPost) {
       if (editedPost[key] === "") {
         setEditedPost({ ...editedPost, [key]: post[key] });
@@ -71,8 +71,9 @@ const EditPost = (props) => {
               <input
                 type="text"
                 name="title"
-                value={editedPost.title ? editedPost.title : post.title}
+                value={editedPost.title}
                 onChange={handleChange}
+                required={true}
               ></input>
             </label>
             <label>
@@ -80,12 +81,9 @@ const EditPost = (props) => {
               <input
                 type="textarea"
                 name="description"
-                value={
-                  editedPost.description
-                    ? editedPost.description
-                    : post.description
-                }
+                value={editedPost.description}
                 onChange={handleChange}
+                required={true}
               ></input>
             </label>
             <label>
@@ -93,8 +91,9 @@ const EditPost = (props) => {
               <input
                 type="text"
                 name="price"
-                value={editedPost.price ? editedPost.price : post.price}
+                value={editedPost.price}
                 onChange={handleChange}
+                required={true}
               ></input>
             </label>
             <label>
@@ -102,10 +101,9 @@ const EditPost = (props) => {
               <input
                 type="text"
                 name="location"
-                value={
-                  editedPost.location ? editedPost.location : post.location
-                }
+                value={editedPost.location}
                 onChange={handleChange}
+                required={true}
               ></input>
             </label>
             <label>
