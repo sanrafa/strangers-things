@@ -39,7 +39,7 @@ const UserProfile = () => {
               {post.active ? (
                 <Link to={`/posts/${post._id}/post`}>{post.title}</Link>
               ) : (
-                post.title
+                post.title + " (inactive)"
               )}
             </h3>
             <p>{post.description}</p>

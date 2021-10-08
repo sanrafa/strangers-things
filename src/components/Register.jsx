@@ -25,7 +25,7 @@ const Register = (props) => {
         setRegisterError("");
       })
       .then(() => {
-        localStorage.setItem("token", token); // CHANGE TO SESSION BEFORE DEPLOYMENT
+        sessionStorage.setItem("token", token); // CHANGE TO SESSION BEFORE DEPLOYMENT
       })
       .catch((err) => {
         console.error(err);
@@ -57,6 +57,7 @@ const Register = (props) => {
             onChange={(e) => {
               setUser(e.target.value);
             }}
+            minLength="5"
           ></input>
         </label>
         <label>
@@ -69,6 +70,7 @@ const Register = (props) => {
             onChange={(e) => {
               setPass(e.target.value);
             }}
+            minLength="8"
           ></input>
         </label>
 
