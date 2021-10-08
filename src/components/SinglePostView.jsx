@@ -7,7 +7,7 @@ import { sendMessage, deletePost } from "../api";
 const SinglePostView = (props) => {
   const { postID } = useParams();
   const { token } = useContext(UserContext);
-  const posts = props.posts;
+  const [posts, setPosts] = [props.posts, props.setPosts];
 
   const [post, setPost] = useState({});
   const [message, setMessage] = useState("");
@@ -15,30 +15,38 @@ const SinglePostView = (props) => {
   const [deletedPost, setDeletedPost] = useState(false);
 
   useEffect(() => {
-    const thisPost = posts.filter((ele) => ele._id === postID);
+    const thisPost = posts.filter(
+      (ele) => ele._id === postID && ele.active === true
+    );
     setPost(thisPost[0]);
   }, [postID, posts]);
 
   return (
     <section>
       <Link to="/posts">Return to all posts</Link>
-      {post && post.isAuthor ? (
+      {post && post.isAuthor && !deletedPost ? (
         <Link to={`/posts/${postID}/edit`}>Edit this post</Link>
       ) : null}
       {post && post.isAuthor && !deletedPost ? (
         <button
           type="button"
           onClick={() => {
-            deletePost(postID, token).then(() => {
-              setDeletedPost(true);
-              setPost(false);
-            });
+            deletePost(postID, token)
+              .then(() => {
+                setDeletedPost(true);
+              })
+              .finally(() => {
+                const activePosts = posts.filter(
+                  (post) => post.active === true
+                );
+                setPosts(activePosts);
+              });
           }}
         >
           DELETE THIS POST
         </button>
       ) : null}
-      {!post && deletedPost ? (
+      {deletedPost ? (
         <p>
           <em>Your post has been deleted.</em>
         </p>

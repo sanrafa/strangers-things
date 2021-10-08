@@ -36,6 +36,7 @@ const NewPost = (props) => {
             e.preventDefault();
             makeNewPost(token, newPost).then((res) => {
               setPosts([...posts, res.data.post]);
+
               setPostSubmitted(true);
               setNewPostID(res.data.post._id);
             });

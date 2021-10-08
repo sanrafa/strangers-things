@@ -29,6 +29,8 @@ const App = () => {
   const [token, setToken] = useState("");
   const [activeUser, setActiveUser] = useState("");
 
+  const pathname = window.location.pathname;
+
   useEffect(() => {
     //if user selected "stay logged in" during last session, app authorizes them on page load
     if (localStorage.getItem("token")) {
@@ -42,7 +44,7 @@ const App = () => {
   useEffect(() => {
     const allPosts = fetchAllPosts(token);
     allPosts.then((res) => setPosts(res.data.posts));
-  }, [JSON.stringify(posts), token]); // since posts is an array of objects, it'll rerender everytime the variable is read
+  }, [JSON.stringify(posts), token, pathname]); // since posts is an array of objects, it'll rerender everytime the variable is read
 
   return (
     <UserContext.Provider
@@ -83,7 +85,7 @@ const App = () => {
           <Switch>
             {/* Insert Routes for each page: register, login, profile, home, etc. */}
             <Route exact path="/posts/:postID/post">
-              <SinglePostView posts={posts} />
+              <SinglePostView posts={posts} setPosts={setPosts} />
             </Route>
             <Route exact path="/posts/:postID/edit">
               <EditPost posts={posts} setPosts={setPosts} />
